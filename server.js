@@ -27,7 +27,7 @@ let listener = app.listen(process.env.PORT, function () {
     console.log('NextLevelPowers is running on port ' + listener.address().port);
 
     // fetch reddit posts every 15 minutes
-    (new CronJob('*/5 * * * *', function () {
+    (new CronJob('*/15 * * * *', function () {
         request('https://old.reddit.com/r/' + subreddits[0], function (err, res, body) {
             if (err) {
                 console.log('Error at fetching reddit: ', err);
@@ -48,7 +48,7 @@ let listener = app.listen(process.env.PORT, function () {
     })).start();
 
     // tweet every hour
-    (new CronJob('*/10 * * * *', function () {
+    (new CronJob('0 * * * *', function () {
         if (redditPosts.length > 0) {
             const redditPost = redditPosts.pop();
             let tweet = redditPost.status + ' #NextLevel #GodTierSuperpowers';
